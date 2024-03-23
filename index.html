@@ -1,0 +1,165 @@
+<!doctype html>
+<html> 
+    <head> 
+        <meta charset="utf-8"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+        <title>图形绘制</title> 
+        <style type="text/css">
+        	canvas{
+                box-shadow: 0 0 5px gray;
+                margin-top: 0 auto;
+            }
+            .butcss{
+                width: 60;
+                height: 50;
+                background-color: blue;
+            }
+            .butcsss{
+                width: 70;
+                height: 60;
+                background-color: blue;
+            }    
+        </style> 
+    </head> 
+    <body> 
+        <canvas id="onecan" width="300px" height="300px"></canvas> 
+        <p id="set">输出</p> 
+        
+        <button onclick="four_Rect()">画四个Rect，红黄绿蓝</button> 
+        <button onclick="kill_Rect()">清理Rect</button> 
+        <button onclick="draw_sanjiao()">画一个三角</button> 
+        <button onclick="kill_sanjiao()">清理三角</button> 
+        <button onclick="draw_stroke_sanjiao()">画一个线三角</button>
+        <button onclick="kill_xsj()">清除虚三角</button>
+        
+        
+        <script>
+        var canpen = document.getElementById("onecan");
+        var buttoncss = document.getElementById("butcs");
+        var pen = canpen.getContext("2d");
+        var panduan = false;
+        var sjpanduan = false;
+        var xsjpanduan = false;
+        
+        function four_Rect() {
+            if(sjpanduan === true){
+                alert("请先清除三角形!");          
+            }
+            if(xsjpanduan === true) {
+            	alert("请先清除线三角!!!");
+            }
+            else {
+            if(xsjpanduan === false) {
+            pen.fillStyle = 'red';
+            pen.fillRect(20,20,100,100);
+        
+            pen.fillStyle = "blue";
+            pen.fillRect(120,20,100,100);
+        
+            pen.fillStyle = "yellow";
+            pen.fillRect(20,120,100,100);
+        
+            pen.fillStyle = "green";
+            pen.fillRect(120,120,100,100);
+            
+            panduan = true;
+            }
+            }
+        }
+        
+        function kill_Rect() {
+            if(panduan === true) {
+                pen.clearRect(20,20,200,200);
+                panduan = false;
+        	    }
+            if(panduan === false) {
+            	alert("你没有画矩形");
+            }    
+        }
+        
+        function draw_sanjiao() {
+            if(panduan === true) {
+                alert("请先清除矩形");
+            }
+            if(panduan === false) {
+            if(xsjpanduan === false) {
+            pen.beginPath();
+            pen.fillStyle="red";
+            pen.moveTo(30,30);
+            pen.lineTo(30,140);
+            pen.lineTo(140,140);
+            pen.closePath();
+            pen.fill();
+            sjpanduan = true;
+            }
+            }
+            if(xsjpanduan===true) {
+            	alert("请先清除线三角!!!");
+            }
+        }
+        
+        function kill_sanjiao() {
+            if(panduan === true) {
+                    alert("请先画一个三角形！");
+            }        
+            else {
+                if(sjpanduan === true){
+                    if(panduan === false) {
+                        pen.clearRect(0,0,300,300);
+                        sjpanduan = false;
+                    }
+                }    
+            
+                if(sjpanduan === false) {
+                    alert('没有三角');	
+                    	
+            }
+            }
+        }    
+        
+        function draw_stroke_sanjiao() {
+            if(panduan === false) {
+            if(xsjpanduan===false) {
+               pen.beginPath();
+               pen.strokeStyle = "red";
+               pen.moveTo(30,30);
+               pen.lineTo(30,140);
+               pen.lineTo(140,140);
+               pen.closePath();
+               pen.stroke();
+               xsjpanduan = true;
+            }
+            }
+            else {
+            	if(panduan === true) {
+            		alert("请先清除矩形");
+            	}
+                if(sjpanduan === true) {
+                	alert("请先清除实三角");
+                }
+            }
+        }
+        
+        function kill_xsj() {
+            if(panduan === false) {
+                if(sjpanduan === false) {
+                	if(xsjpanduan === true) {
+                		pen.clearRect(0,0,300,300);
+                        xsjpanduan = false;
+                	}
+                }
+            	
+            }
+            else {
+            	if(panduan === true) {
+            		alert("请先清除矩形");
+            	}
+                if(sjpanduan === true) {
+                	alert("请先清除实三角!!!");
+                }
+            }
+        }
+        
+        </script>  
+    </body>
+</html>
